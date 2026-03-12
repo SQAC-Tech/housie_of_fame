@@ -18,7 +18,7 @@ interface Team {
   amountPaid: number;
   paymentId: string;
   orderId: string;
-  paymentStatus: 'PAID' | 'FAILED' | 'REFUNDED';
+  paymentStatus: 'PAID' | 'FAILED' | 'REFUNDED' | 'PENDING';
   attendance?: {
     present: boolean;
     checkedAt: string;
@@ -150,7 +150,7 @@ export default function AdminPage() {
   };
 
   const statusColor = (s: string) =>
-    s === 'PAID' ? '#22c55e' : s === 'FAILED' ? '#ef4444' : '#f59e0b';
+    s === 'PAID' ? '#22c55e' : s === 'FAILED' ? '#ef4444' : s === 'PENDING' ? '#f59e0b' : '#888';
 
   // ── Password gate ──
   if (!authed) {
@@ -505,6 +505,41 @@ export default function AdminPage() {
                       >
                         {t.paymentStatus}
                       </span>
+                      {t.paymentStatus === 'PENDING' && (
+                        <button
+                          onClick={async () => {
+                            if (!confirm(`Verify payment for team ${t.teamId}?`)) return;
+                            try {
+                              const res = await fetch('/api/admin/verify-payment', {
+                                method: 'POST',
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                  Authorization: `Bearer ${savedPassword}`,
+                                },
+                                body: JSON.stringify({ teamId: t.teamId }),
+                              });
+                              if (res.ok) fetchTeams(savedPassword);
+                              else alert('Verification failed');
+                            } catch (err) {
+                              console.error(err);
+                              alert('Error verifying payment');
+                            }
+                          }}
+                          style={{
+                            marginLeft: 8,
+                            padding: '4px 8px',
+                            fontSize: 10,
+                            background: 'var(--gold)',
+                            color: '#000',
+                            border: 'none',
+                            borderRadius: 4,
+                            cursor: 'pointer',
+                            fontWeight: 700,
+                          }}
+                        >
+                          Verify
+                        </button>
+                      )}
                     </td>
                     <td style={{ padding: '14px 16px', fontFamily: 'monospace', fontSize: 11, color: 'var(--text-muted)', maxWidth: 140, overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       {t.paymentId}

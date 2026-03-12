@@ -102,7 +102,7 @@ export async function sendConfirmationEmail(team: TeamEmailData) {
       </div>
 
       <div class="qr-section">
-        <img src="${qrDataUrl}" alt="Team QR Code" />
+        <img src="cid:team-qr-code" alt="Team QR Code" />
         <p>Show this QR at the entry desk for quick verification</p>
       </div>
 
@@ -160,5 +160,13 @@ Housie of Fame 2026
     subject: `Housie of Fame Registration Confirmed 🎉 — Team ${team.teamId}`,
     text: textBody,
     html: htmlBody,
+    attachments: [
+      {
+        filename: 'qr-code.png',
+        content: qrDataUrl.split('base64,')[1],
+        encoding: 'base64',
+        cid: 'team-qr-code',
+      },
+    ],
   });
 }

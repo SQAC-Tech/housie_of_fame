@@ -16,8 +16,8 @@ export interface ITeam extends Document {
   teamSize: number;
   amountPaid: number;
   paymentId: string;
-  orderId: string;
-  paymentStatus: 'PAID' | 'FAILED' | 'REFUNDED';
+  orderId?: string;
+  paymentStatus: 'PAID' | 'FAILED' | 'REFUNDED' | 'PENDING';
   attendance: {
     present: boolean;
     checkedAt: Date | null;
@@ -44,11 +44,11 @@ const TeamSchema = new Schema<ITeam>(
     teamSize: { type: Number, required: true, min: 2, max: 3 },
     amountPaid: { type: Number, required: true },
     paymentId: { type: String, required: true },
-    orderId: { type: String, required: true },
+    orderId: { type: String, required: false },
     paymentStatus: {
       type: String,
-      enum: ['PAID', 'FAILED', 'REFUNDED'],
-      default: 'PAID',
+      enum: ['PAID', 'FAILED', 'REFUNDED', 'PENDING'],
+      default: 'PENDING',
     },
     attendance: {
       present: { type: Boolean, default: false },
