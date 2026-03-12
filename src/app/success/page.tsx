@@ -14,7 +14,7 @@ export default function SuccessPage() {
   const [data, setData] = useState<RegistrationData | null>(null);
   const [confettiDone, setConfettiDone] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const whatsappLink = process.env.NEXT_PUBLIC_WHATSAPP_LINK || '#';
+  const whatsappLink = process.env.WHATSAPP_LINK || '#';
 
   useEffect(() => {
     const raw = sessionStorage.getItem('housie_registration');
