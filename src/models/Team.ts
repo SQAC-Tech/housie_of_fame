@@ -22,6 +22,8 @@ export interface ITeam extends Document {
     present: boolean;
     checkedAt: Date | null;
   };
+  isWinner?: boolean;
+  winnerTitle?: string;
   createdAt: Date;
 }
 
@@ -52,6 +54,8 @@ const TeamSchema = new Schema<ITeam>(
       present: { type: Boolean, default: false },
       checkedAt: { type: Date, default: null }
     },
+    isWinner: { type: Boolean, default: false },
+    winnerTitle: { type: String, default: '' },
   },
   { timestamps: true }
 );

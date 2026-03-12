@@ -25,6 +25,8 @@ interface Team {
   };
   college: string;
   createdAt: string;
+  isWinner?: boolean;
+  winnerTitle?: string;
 }
 
 export default function AdminPage() {
@@ -38,6 +40,30 @@ export default function AdminPage() {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const [generatingCerts, setGeneratingCerts] = useState(false);
+
+  async function handleGenerateCerts(type: 'participant' | 'winner') {
+    setGeneratingCerts(true);
+    try {
+      const res = await fetch(`/api/admin/certificates?type=${type}`, {
+        headers: { Authorization: `Bearer ${savedPassword}` },
+      });
+      if (!res.ok) {
+        throw new Error(await res.text() || 'Failed to generate certificates');
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${type}_certificates_${Date.now()}.zip`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err: any) {
+      alert(`Certificate generation failed: ${err.message}`);
+    } finally {
+      setGeneratingCerts(false);
+    }
+  }
 
   const fetchTeams = useCallback(async (pw: string) => {
     setLoading(true);
@@ -216,7 +242,21 @@ export default function AdminPage() {
             Live dashboard • Auto-refreshes every 30s
           </p>
         </div>
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+          <button
+            onClick={() => handleGenerateCerts('participant')}
+            disabled={generatingCerts}
+            style={{ padding: '10px 20px', fontSize: 14, background: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6', border: '1px solid #3b82f6', borderRadius: 8, cursor: generatingCerts ? 'wait' : 'pointer', fontWeight: 600 }}
+          >
+            {generatingCerts ? 'Generating…' : '📜 Participant Certs'}
+          </button>
+          <button
+            onClick={() => handleGenerateCerts('winner')}
+            disabled={generatingCerts}
+            style={{ padding: '10px 20px', fontSize: 14, background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', border: '1px solid #ef4444', borderRadius: 8, cursor: generatingCerts ? 'wait' : 'pointer', fontWeight: 600 }}
+          >
+            {generatingCerts ? 'Generating…' : '🏆 Winner Certs'}
+          </button>
           <button
             onClick={() => fetchTeams(savedPassword)}
             className="btn-gold"
@@ -335,7 +375,7 @@ export default function AdminPage() {
                     borderBottom: '1px solid rgba(255,215,0,0.2)',
                   }}
                 >
-                  {['Team ID', 'Team Name', 'Leader', 'Members', 'Attendance', 'College', 'Amount', 'Status', 'Payment ID', 'Registered'].map(
+                  {['Team ID', 'Team Name', 'Leader', 'Members', 'Attendance', 'Winner', 'College', 'Amount', 'Status', 'Payment ID', 'Registered'].map(
                     (h) => (
                       <th
                         key={h}
@@ -367,8 +407,8 @@ export default function AdminPage() {
                     }}
                     onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,215,0,0.04)')}
                     onMouseLeave={(e) =>
-                      (e.currentTarget.style.background =
-                        idx % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.01)')
+                    (e.currentTarget.style.background =
+                      idx % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.01)')
                     }
                   >
                     <td style={{ padding: '14px 16px' }}>
@@ -410,6 +450,36 @@ export default function AdminPage() {
                         <span style={{ padding: '4px 10px', borderRadius: 4, background: 'rgba(136, 136, 136, 0.1)', color: '#888', fontSize: 12, fontWeight: 'bold' }}>❌ Absent</span>
                       )}
                     </td>
+                    <td style={{ padding: '14px 16px' }}>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}>
+                        <input
+                          type="checkbox"
+                          checked={t.isWinner || false}
+                          onChange={async (e) => {
+                            const isWinner = e.target.checked;
+                            const title = isWinner ? prompt('Enter Winner Title (e.g., 1st Place):', 'Winner') : '';
+                            if (isWinner && title === null) return; // cancelled
+
+                            try {
+                              const res = await fetch(`/api/admin/teams/${t._id}/winner`, {
+                                method: 'POST',
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                  Authorization: `Bearer ${savedPassword}`
+                                },
+                                body: JSON.stringify({ isWinner, winnerTitle: title })
+                              });
+                              if (res.ok) fetchTeams(savedPassword);
+                            } catch (err) {
+                              console.error(err);
+                            }
+                          }}
+                        />
+                        <span style={{ fontSize: 12, fontWeight: 600, color: t.isWinner ? '#ef4444' : 'var(--text-muted)' }}>
+                          {t.isWinner ? (t.winnerTitle || 'Winner') : 'Make Winner'}
+                        </span>
+                      </label>
+                    </td>
                     <td style={{ padding: '14px 16px', fontSize: 13, color: 'var(--text-muted)', maxWidth: 140 }}>
                       {t.college}
                     </td>
@@ -449,6 +519,6 @@ export default function AdminPage() {
           </div>
         )}
       </div>
-    </div>
+    </div >
   );
 }
