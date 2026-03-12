@@ -38,9 +38,9 @@ const SPOTLIGHT_ZONES = [
       { name: 'Tech Whisper', desc: 'Ask one clarification question to the tech team.' },
       { name: 'Clean Slate Pass', desc: 'Skip one question without penalty.' },
     ],
-    color: 'from-purple-900/40 to-purple-800/10',
-    border: 'border-purple-500/30',
-    accent: '#a855f7',
+    color: 'from-amber-900/40 to-amber-800/10',
+    border: 'border-amber-500/30',
+    accent: '#f59e0b',
   },
   {
     icon: '🏆',

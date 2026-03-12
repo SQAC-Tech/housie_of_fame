@@ -108,8 +108,14 @@ export default function RegisterPage() {
         return;
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const Razorpay = (window as any).Razorpay;
+      if (!Razorpay) {
+        alert('Razorpay SDK failed to load. Please check your internet connection.');
+        setLoading(false);
+        setStep('form');
+        return;
+      }
+
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: orderData.amount,
@@ -163,7 +169,8 @@ export default function RegisterPage() {
 
             sessionStorage.setItem('housie_registration', JSON.stringify(verifyData));
             router.push('/success');
-          } catch {
+          } catch (err) {
+            console.error('Payment Verification Error:', err);
             alert('Network error during verification. Please contact support with your payment ID.');
             setLoading(false);
             setStep('form');
@@ -172,9 +179,14 @@ export default function RegisterPage() {
       };
 
       const rzp = new Razorpay(options);
+      rzp.on('payment.failed', function (response: any) {
+        console.error('Razorpay payment failed:', response.error);
+        alert(response.error.description || 'Payment Failed');
+      });
       rzp.open();
-    } catch {
-      alert('Something went wrong. Please try again.');
+    } catch (err) {
+      console.error('Registration/Payment flow error:', err);
+      alert('Something went wrong. Please check the console for details and try again.');
       setLoading(false);
       setStep('form');
     }
@@ -229,7 +241,7 @@ export default function RegisterPage() {
 
   return (
     <>
-      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="beforeInteractive" />
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
       <div style={{ minHeight: '100vh', width: '100%', background: 'linear-gradient(135deg, #1f0404 0%, var(--bg-dark) 40%, #150000 100%)', position: 'relative', overflowX: 'hidden' }}>
 
         {/* Red carpet background decoration */}

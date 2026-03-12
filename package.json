@@ -16,6 +16,7 @@
     "next": "16.1.6",
     "nodemailer": "^8.0.2",
     "pdf-lib": "^1.17.1",
+    "playwright": "^1.58.2",
     "qrcode": "^1.5.4",
     "razorpay": "^2.9.6",
     "react": "19.2.3",

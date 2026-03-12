@@ -70,21 +70,25 @@ export async function POST(req: NextRequest) {
 
     const amount = Number(teamSize) * 50 * 100; // paise
 
+    console.log('[create-order] Initiating Razorpay order creation for amount:', amount);
+
     const order = await getRazorpay().orders.create({
       amount,
       currency: 'INR',
       receipt: `receipt_${Date.now()}`,
     });
 
+    console.log('[create-order] Razorpay order created successfully:', order.id);
+
     return NextResponse.json({
       orderId: order.id,
       amount: order.amount,
       currency: order.currency,
     });
-  } catch (err) {
-    console.error('[create-order]', err);
+  } catch (err: any) {
+    console.error('[create-order] Error in Razorpay order creation:', err);
     return NextResponse.json(
-      { error: 'Failed to create order. Please try again.' },
+      { error: `Failed to create order: ${err?.message || 'Unknown error'}` },
       { status: 500 }
     );
   }
