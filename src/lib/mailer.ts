@@ -41,7 +41,7 @@ export async function sendConfirmationEmail(team: TeamEmailData) {
     .map((m, i) => `${i + 1}. ${m.name}`)
     .join('\n');
 
-  const whatsappLink = process.env.WHATSAPP_LINK || '#';
+  const whatsappLink = process.env.NEXT_PUBLIC_WHATSAPP_LINK || '#';
   const eventDate = process.env.EVENT_DATE || 'TBA';
   const eventTime = process.env.EVENT_TIME || 'TBA';
   const eventVenue = process.env.EVENT_VENUE || 'TBA';
