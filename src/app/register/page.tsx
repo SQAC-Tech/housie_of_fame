@@ -192,7 +192,7 @@ export default function RegisterPage() {
           <p style={{ color: 'var(--text-muted)', fontSize: 14, marginBottom: 30 }}>Complete the payment to register your team.</p>
 
           <div style={{ background: '#fff', padding: 10, borderRadius: 12, display: 'inline-block', marginBottom: 30, boxShadow: '0 0 30px rgba(255,215,0,0.2)' }}>
-            <img src="/payment-qr.png" alt="Payment QR Code" style={{ width: 220, height: 220, display: 'block' }} />
+            <img src="/qr-code.jpeg" alt="Payment QR Code" style={{ width: 220, height: 220, display: 'block' }} />
           </div>
 
           <div style={{ textAlign: 'left', marginBottom: 30 }}>
