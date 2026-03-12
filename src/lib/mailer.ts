@@ -44,6 +44,7 @@ export async function sendConfirmationEmail(team: TeamEmailData) {
   const whatsappLink = process.env.WHATSAPP_LINK || '#';
   const eventDate = process.env.EVENT_DATE || 'TBA';
   const eventTime = process.env.EVENT_TIME || 'TBA';
+  const eventVenue = process.env.EVENT_VENUE || 'TBA';
 
   const htmlBody = `
 <!DOCTYPE html>
@@ -109,6 +110,7 @@ export async function sendConfirmationEmail(team: TeamEmailData) {
         <p>📅 <strong>Date:</strong> ${eventDate}</p>
         <p>⏰ <strong>Time:</strong> ${eventTime}</p>
         <p>👗 <strong>Dress Code:</strong> Red Carpet Attire</p>
+        <p>📍 <strong>Venue:</strong> ${eventVenue}</p>
       </div>
 
       <a href="${whatsappLink}" class="cta">📱 Join Our WhatsApp Group</a>
