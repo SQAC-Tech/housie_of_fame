@@ -279,28 +279,25 @@ export default function LandingPage() {
           }}
         />
 
-        <div style={{ textAlign: 'center', width: '100%', maxWidth: 980, position: 'relative', zIndex: 1 }}>
-          {/* Badge */}
+        <div style={{ textAlign: 'center', width: '100%', maxWidth: 1000, position: 'relative', zIndex: 1 }}>
+          {/* Badge with Logo */}
           <div
-            className="animate-fadeInUp"
+            className="animate-fadeInUp text-gold-gradient"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: 8,
-              background: 'rgba(139, 0, 0, 0.25)',
-              border: '1px solid rgba(255, 215, 0, 0.3)',
-              borderRadius: 999,
-              padding: '8px 20px',
-              marginBottom: 32,
-              fontSize: 13,
-              fontWeight: 500,
-              color: 'var(--gold)',
+              marginBottom: 16,
+              fontSize: 'clamp(14px, 2vw, 18px)',
+              fontWeight: 600,
               letterSpacing: 2,
+              fontFamily: 'Playfair Display, serif',
               textTransform: 'uppercase',
             }}
           >
             <span>🎬</span>
-            <span>SQAC Presents</span>
+            <span>SQAC PRESENTS</span>
           </div>
 
           {/* Main title */}
@@ -312,6 +309,7 @@ export default function LandingPage() {
               lineHeight: 1.0,
               marginBottom: 16,
               animationDelay: '0.1s',
+              textShadow: '0 4px 20px rgba(0,0,0,0.5)',
             }}
           >
             <span className="text-gold-gradient">HOUSIE</span>
@@ -332,86 +330,89 @@ export default function LandingPage() {
               animationDelay: '0.3s',
             }}
           >
-            "Where every number tells a story"
+            Where every number tells a story!
           </p>
 
-            {/* Countdown Timer */}
-            <div
-              className="animate-fadeInUp"
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                gap: 'clamp(12px, 3vw, 24px)',
-                marginBottom: 48,
-                animationDelay: '0.45s',
-              }}
-            >
-              {[
-                { label: 'Days', value: timeLeft.d },
-                { label: 'Hours', value: timeLeft.h },
-                { label: 'Mins', value: timeLeft.m },
-                { label: 'Secs', value: timeLeft.s },
-              ].map((unit, i) => (
-                <div key={unit.label} style={{ textAlign: 'center' }}>
-                  <div
-                    style={{
-                      background: 'linear-gradient(145deg, rgba(80,0,0,0.4), rgba(20,5,5,0.8))',
-                      border: '1px solid rgba(255,215,0,0.2)',
-                      borderRadius: 12,
-                      width: 'clamp(60px, 12vw, 80px)',
-                      height: 'clamp(65px, 13vw, 85px)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      marginBottom: 8,
-                      boxShadow: '0 10px 30px -10px rgba(0,0,0,0.5)',
-                    }}
-                  >
-                    <span className="font-display" style={{ fontSize: 'clamp(24px, 5vw, 36px)', fontWeight: 700, color: 'var(--text-primary)' }}>
-                      {unit.value.toString().padStart(2, '0')}
-                    </span>
-                  </div>
-                  <span style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: 2, color: 'var(--gold)' }}>
-                    {unit.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            {/* Event info pills */}
+          {/* Countdown Timer */}
           <div
             className="animate-fadeInUp"
             style={{
               display: 'flex',
-              gap: 16,
               justifyContent: 'center',
-              flexWrap: 'wrap',
+              gap: 'clamp(12px, 3vw, 24px)',
               marginBottom: 48,
-              animationDelay: '0.4s',
+              animationDelay: '0.45s',
             }}
           >
             {[
-              { icon: '👥', label: '2–3 Members' },
-              { icon: '💰', label: '₹50 Per Member' },
-            ].map((item) => (
-              <div
-                key={item.label}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  borderRadius: 999,
-                  padding: '8px 18px',
-                  fontSize: 14,
-                  color: 'var(--text-primary)',
-                }}
-              >
-                <span>{item.icon}</span>
-                <span>{item.label}</span>
+              { label: 'Days', value: timeLeft.d },
+              { label: 'Hours', value: timeLeft.h },
+              { label: 'Mins', value: timeLeft.m },
+              { label: 'Secs', value: timeLeft.s },
+            ].map((unit, i) => (
+              <div key={unit.label} style={{ textAlign: 'center' }}>
+                <div
+                  style={{
+                    background: 'linear-gradient(145deg, rgba(80,0,0,0.4), rgba(20,5,5,0.8))',
+                    border: '1px solid rgba(255,215,0,0.2)',
+                    borderRadius: 12,
+                    width: 'clamp(60px, 12vw, 80px)',
+                    height: 'clamp(65px, 13vw, 85px)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: 8,
+                    boxShadow: '0 10px 30px -10px rgba(0,0,0,0.5)',
+                  }}
+                >
+                  <span className="font-display" style={{ fontSize: 'clamp(24px, 5vw, 36px)', fontWeight: 700, color: 'var(--text-primary)' }}>
+                    {unit.value.toString().padStart(2, '0')}
+                  </span>
+                </div>
+                <span style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: 2, color: 'var(--gold)' }}>
+                  {unit.label}
+                </span>
               </div>
             ))}
+          </div>
+
+          {/* Event info pills */}
+          <div
+            className="animate-fadeInUp"
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: 'clamp(12px, 3vw, 24px)',
+              marginBottom: 56,
+              animationDelay: '0.3s',
+              fontFamily: 'Playfair Display, serif',
+            }}
+          >
+            {/* Left Block */}
+            <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <span className="text-gold-gradient" style={{ fontSize: 'clamp(12px, 2vw, 16px)', letterSpacing: 1.5, fontWeight: 600 }}>WED. 09:00 AM</span>
+              <span className="text-gold-gradient" style={{ fontSize: 'clamp(12px, 2vw, 16px)', letterSpacing: 1.5, fontWeight: 600, opacity: 0.9 }}>TP-2 | 702</span>
+            </div>
+
+            {/* Center Date Block */}
+            <div
+              style={{
+                borderLeft: '1px solid rgba(255,215,0,0.4)',
+                borderRight: '1px solid rgba(255,215,0,0.4)',
+                padding: '0 clamp(12px, 3vw, 24px)',
+              }}
+            >
+              <span className="text-gold-gradient" style={{ fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: 700, letterSpacing: 2 }}>
+                25/03
+              </span>
+            </div>
+
+            {/* Right Block */}
+            <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <span className="text-gold-gradient" style={{ fontSize: 'clamp(12px, 2vw, 16px)', letterSpacing: 1.5, fontWeight: 600 }}>₹ 50 PER PERSON</span>
+              <span className="text-gold-gradient" style={{ fontSize: 'clamp(12px, 2vw, 16px)', letterSpacing: 1.5, fontWeight: 600, opacity: 0.9 }}>2-3 MEMBERS</span>
+            </div>
           </div>
 
           {/* CTA */}
@@ -492,13 +493,12 @@ export default function LandingPage() {
               <div
                 key={zone.zone}
                 style={{
-                  background: `linear-gradient(135deg, ${
-                    zone.zone === 'Rising Star Zone'
-                      ? 'rgba(120,100,0,0.2), rgba(10,10,10,0.8)'
-                      : zone.zone === 'Celebrity Lane'
+                  background: `linear-gradient(135deg, ${zone.zone === 'Rising Star Zone'
+                    ? 'rgba(120,100,0,0.2), rgba(10,10,10,0.8)'
+                    : zone.zone === 'Celebrity Lane'
                       ? 'rgba(80,0,120,0.2), rgba(10,10,10,0.8)'
                       : 'rgba(120,0,0,0.25), rgba(10,10,10,0.8)'
-                  })`,
+                    })`,
                   border: `1px solid ${zone.accent}30`,
                   borderRadius: 20,
                   padding: 32,

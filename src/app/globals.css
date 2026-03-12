@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -130,7 +130,7 @@ input[type="submit"],
 
 /* Gold text gradient */
 .text-gold-gradient {
-  background: linear-gradient(135deg, #FFD700, #FFE55C, #B8860B, #FFD700);
+  background: linear-gradient(135deg, #e6c27a, #fcebb6, #c29b4f, #e6c27a);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
