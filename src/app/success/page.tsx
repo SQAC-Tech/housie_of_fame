@@ -120,7 +120,7 @@ export default function SuccessPage() {
             You&apos;re On The <span className="text-gold-gradient">Red Carpet!</span>
           </h1>
           <p style={{ color: 'var(--text-muted)', fontSize: 16 }}>
-            Registration confirmed. See you at the event!
+            Registration successful, but payment verification is under process.
           </p>
         </div>
 
@@ -197,11 +197,11 @@ export default function SuccessPage() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 4 }}>Amount Paid</p>
-              <p className="font-display" style={{ fontSize: 36, fontWeight: 900, color: '#22c55e' }}>₹{data.amountPaid}</p>
+              <p className="font-display" style={{ fontSize: 36, fontWeight: 900, color: '#f59e0b' }}>₹{data.amountPaid}</p>
             </div>
-            <div style={{ background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: 999, padding: '8px 20px', display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ color: '#22c55e', fontSize: 18 }}>✓</span>
-              <span style={{ color: '#22c55e', fontWeight: 600, fontSize: 14 }}>PAID</span>
+            <div style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.3)', borderRadius: 999, padding: '8px 20px', display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ color: '#f59e0b', fontSize: 18 }}>⏳</span>
+              <span style={{ color: '#f59e0b', fontWeight: 600, fontSize: 14, textAlign: 'center' }}>Verification under process</span>
             </div>
           </div>
         </div>
@@ -225,7 +225,7 @@ export default function SuccessPage() {
               Save This Screenshot!
             </p>
             <p style={{ color: 'var(--text-muted)', fontSize: 13, lineHeight: 1.5 }}>
-              Screenshot this page and save your Team ID <strong style={{ color: 'var(--gold)' }}>{data.teamId}</strong>. A confirmation email has also been sent to all members.
+              Screenshot this page and save your Team ID <strong style={{ color: 'var(--gold)' }}>{data.teamId}</strong>. Once payment is verified, you will receive a mail containing a QR code which you must bring to the event.
             </p>
           </div>
         </div>
@@ -270,7 +270,7 @@ export default function SuccessPage() {
             👗 Remember the dress code: <strong style={{ color: 'var(--text-primary)' }}>Red Carpet Attire</strong>
           </p>
           <p style={{ color: 'var(--text-muted)', fontSize: 13 }}>
-            🎫 Bring your ticket + Team ID <strong style={{ color: 'var(--gold)' }}>{data.teamId}</strong> to the entry desk
+            🎫 Bring your QR Code (sent via mail after verification) + Team ID <strong style={{ color: 'var(--gold)' }}>{data.teamId}</strong> to the entry desk
           </p>
         </div>
 
